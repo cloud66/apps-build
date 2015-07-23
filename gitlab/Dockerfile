@@ -38,7 +38,14 @@ RUN (echo "" \
      && echo "gitlab_rails['redis_host'] = ENV[\"REDIS_ADDRESS\"]" \
      && echo "gitlab_rails['redis_port'] = 6379" \
      && echo "gitlab_rails['gitlab_shell_ssh_port'] = 10022" \
-     && echo "gitlab_rails['gitlab_ssh_host'] = ENV[\"SITE\"]") >> /etc/gitlab/gitlab.rb
+     && echo "gitlab_rails['gitlab_ssh_host'] = ENV[\"SITE\"]" \ 
+     && echo "gitlab_ci['smtp_enable'] = ENV[\"SMTP_ENABLE\"] == 'true'" \ 
+     && echo "gitlab_ci['smtp_address'] = ENV[\"SMTP_ADDRESS\"]" \ 
+     && echo "gitlab_ci['smtp_port'] = ENV[\"SMTP_PORT\"].to_i" \ 
+     && echo "gitlab_ci['smtp_user_name'] = ENV[\"SMTP_USER_NAME\"]" \ 
+     && echo "gitlab_ci['smtp_password'] = ENV[\"SMTP_PASSWORD\"]" \ 
+     && echo "gitlab_ci['smtp_domain'] = ENV[\"SMTP_DOMAIN\"]" \ 
+     && echo "gitlab_ci['smtp_tls'] = ENV[\"SMTP_TLS\"] == 'true'") >> /etc/gitlab/gitlab.rb
 
 # Expose web & ssh
 EXPOSE 80 443 22
